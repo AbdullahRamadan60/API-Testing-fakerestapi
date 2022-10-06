@@ -1,0 +1,176 @@
+
+BaseUrl = https://fakerestapi.azurewebsites.net
+
+1-) API : GET -> /api/v1/Authors
+
+Test Case 1 : The response is "200 OK"
+Expected Result : The response code is 200 & the response status is "OK"
+Actual Result : The response code is 200 & the response status is "OK"
+Status : Pass
+
+Test Case 2 : The response has a json body
+Expected Result : The response body is in json format & the response header "Content-Type" contains "application/json"
+Actual Result : The response body is in json format & the response header "Content-Type" contains "application/json"
+Status : Pass
+
+Test Case 3 : The authors have the following properties -> "id", "idBook", "firstName", and "lastName"
+Expected Result : The response body objects contain "id", "idBook", "firstName", and "lastName"
+Actual Result : The response body objects contain "id", "idBook", "firstName", and "lastName"
+Status : Pass
+
+
+2-) API : POST -> /api/v1/Authors
+
+Test Case 1 : The response is "201 Created" or "200 OK" when the author register with valid data
+Expected Result : The response code is 201 or 200 & the response status is "Created" or "OK"
+Actual Result : The response code is 200 & the response status is "OK"
+Status : Pass
+
+Test Case 2 : The response has a json body
+Expected Result : The response body is in json format & the response header "Content-Type" contains "application/json"
+Actual Result : The response body is in json format & the response header "Content-Type" contains "application/json"
+Status : Pass
+
+Test Case 3 : Registeration data is stored successfully
+Expected Result : The response body values are equal to the request body values
+Actual Result : The response body values are equal to the request body values
+Status : Pass 
+
+Test Case 4 : the GET request for the new registered author should be (200 OK) --> (GET /api/v1/Authors/{id})
+Expected Result : The response code is 200 & the response status is "OK"
+Actual Result : The response code is 404 & the response status is "Not Found"
+Status : Fail
+
+Test Case 5 : Registered author data should appear in the response body of the GET request for that author id --> (GET /api/v1/Authors/{id})
+Expected Result : The registered author data should appear in the response body
+Actual Result : The Error "404 Not Found" appeared in the response body
+Status : Fail 
+
+Test Case 6 : The response is "400 Bad Request" when there's no request body is sent
+Expected Result : The response code is 400 & the response status is "Bad Request" & Error message in the response body
+Actual Result : The response code is 400 & the response status is "Bad Request" & Error message in the response body
+Status : Pass
+
+Test Case 7 : The response is "400 Bad Request" when the request json body is empty (the main json object is empty)
+Expected Result : The response code is 400 & the response status is "Bad Request" & Error message in the response body
+Actual Result : The response code is 200 & the response status is "OK" & No error message in the response body
+Status : Fail
+
+Test Case 8 : The response is "400 Bad Request" when the author "firstName" have a null value
+Expected Result : The response code is 400 & the response status is "Bad Request" & Error message in the response body
+Actual Result : The response code is 200 & the response status is "OK" & No error message in the response body
+Status : Fail
+
+Test Case 9 : The response is "400 Bad Request" when the author "lastName" have a null value
+Expected Result : The response code is 400 & the response status is "Bad Request" & Error message in the response body
+Actual Result : The response code is 200 & the response status is "OK" & No error message in the response body
+Status : Fail
+
+
+3-) API : GET -> /api/v1/Authors/authors/books/{idBook}
+
+Test Case 1 : The response is "200 OK" when Searching with valid "idBook"
+Expected Result : The response code is 200 & the response status is "OK"
+Actual Result : The response code is 200 & the response status is "OK"
+Status : Pass
+
+Test Case 2 : The response has a json body
+Expected Result : The response body is in json format & the response header "Content-Type" contains "application/json"
+Actual Result : The response body is in json format & the response header "Content-Type" contains "application/json"
+Status : Pass
+
+Test Case 3 : Searching with valid "idBook" should return relative data in response body
+Expected Result : All josn response body objects should contain the same "idBook" value of the search
+Actual Result : All josn response body objects contain the same "idBook" value of the search
+Status : Pass
+
+Test Case 4 : The response is "404 Not Found" when Searching with invalid "idBook"
+Expected Result : The response code is 404 & the response status is "Not Found"
+Actual Result : The response code is 200 & the response status is "OK" & and empty array in the response body
+Status : Fail
+
+
+4-) API : GET -> /api/v1/Authors/{id}
+
+Test Case 1 : The response is "200 OK" when Searching with valid "id"
+Expected Result : The response code is 200 & the response status is "OK"
+Actual Result : The response code is 200 & the response status is "OK"
+Status : Pass
+
+Test Case 2 : The response has a json body
+Expected Result : The response body is in json format & the response header "Content-Type" contains "application/json"
+Actual Result : The response body is in json format & the response header "Content-Type" contains "application/json"
+Status : Pass
+
+Test Case 3 : Searching with valid "id" should return relative data in response body
+Expected Result : The josn response body should contain the same "id" value of the search
+Actual Result : The josn response body contains the same "id" value of the search
+Status : Pass
+
+Test Case 4 : The response is "404 Not Found" when Searching with invalid "id"
+Expected Result : The response code is 404 & the response status is "Not Found"
+Actual Result : The response code is 404 & the response status is "Not Found"
+Status : Pass
+
+
+5-) API : PUT -> /api/v1/Authors/{id}
+
+Test Case 1 : The response is "200 OK" when updating data of a valid author 
+Expected Result : The response code is 200 & the response status is "OK"
+Actual Result : The response code is 200 & the response status is "OK"
+Status : Pass
+
+Test Case 2 : The response has a json body
+Expected Result : The response body is in json format & the response header "Content-Type" contains "application/json"
+Actual Result : The response body is in json format & the response header "Content-Type" contains "application/json"
+Status : Pass
+
+Test Case 3 : Updating data of a valid author is done successfully
+Expected Result : The josn response body should contain the updated data (the updated firstName & lastName)
+Actual Result : The josn response body contains the updated data
+Status : Pass
+
+Test Case 4 : The GET request for the updated author should be (200 OK) --> (GET /api/v1/Authors/{id})
+Expected Result : The response code is 200 & the response status is "OK"
+Actual Result : The response code is 200 & the response status is "OK"
+Status : Pass
+
+Test Case 5 : Updated author data should appear in the response body of the GET request for that author id --> (GET /api/v1/Authors/{id})
+Expected Result : The josn response body of (the GET request) should contain the updated data (the updated firstName & lastName)
+Actual Result : The josn response body of (the GET request) doesn't contain the updated data
+Status : Fail
+
+Test Case 6 : The response is "404 Not Found" when updating data of an invalid author
+Expected Result : The response code is 404 & the response status is "Not Found"
+Actual Result : The response code is 200 & the response status is "OK"
+Status : Fail
+
+6-) API : DELETE -> /api/v1/Authors/{id}
+
+Test Case 1 : The response is "200 OK" when deleting a valid author 
+Expected Result : The response code is 200 & the response status is "OK"
+Actual Result : The response code is 200 & the response status is "OK"
+Status : Pass
+
+Test Case 2 : Deleting a valid author is done successfully (the response shouldn't have a body)
+Expected Result : There's no response body
+Actual Result : There's no response body
+Status : Pass
+
+Test Case 3 : The GET request for the deleted author should be (404 Not Found) --> (GET /api/v1/Authors/{id})
+Expected Result : The response code is 404 & the response status is "Not Found"
+Actual Result : The response code is 200 & the response status is "OK"
+Status : Fail
+
+Test Case 4 : Deleted author shouldn't get a response body when send a GET request for that author id --> (GET /api/v1/Authors/{id})
+Expected Result : The josn response body shouldn't exist & the response should be "404 Not Found" 
+Actual Result : A josn response body exists and still has the author data & The response is "200 OK"
+Status : Fail
+
+Test Case 5 : The response is "404 Not Found" when deleting an invalid author
+Expected Result : The response code is 404 & the response status is "Not Found"
+Actual Result : The response code is 200 & the response status is "OK" & an empty response body 
+Status : Fail
+
+
+

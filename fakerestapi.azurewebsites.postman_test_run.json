@@ -1,0 +1,559 @@
+{
+	"id": "cfa20b1d-e61e-4e9b-9169-2d0544488e8a",
+	"name": "fakerestapi.azurewebsites",
+	"timestamp": "2022-09-12T04:41:56.808Z",
+	"collection_id": "18912240-a2cc85d5-06be-493f-af89-af94c3e3cd5f",
+	"folder_id": 0,
+	"environment_id": "18912240-cbc322ba-fa32-423f-9c50-93ae7ae3ba80",
+	"totalPass": 20,
+	"totalFail": 11,
+	"results": [
+		{
+			"id": "e9bfca24-6030-4397-af60-3fea2d00614c",
+			"name": "1- Authors List",
+			"url": "https://fakerestapi.azurewebsites.net/api/v1/Authors",
+			"time": 213,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"The response is \"200 OK\"": true,
+				"The response has a json body": true,
+				"The authors have the following properties (keys) -> id, idBook, firstName, and lastName": true
+			},
+			"testPassFailCounts": {
+				"The response is \"200 OK\"": {
+					"pass": 1,
+					"fail": 0
+				},
+				"The response has a json body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"The authors have the following properties (keys) -> id, idBook, firstName, and lastName": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				213
+			],
+			"allTests": [
+				{
+					"The response is \"200 OK\"": true,
+					"The response has a json body": true,
+					"The authors have the following properties (keys) -> id, idBook, firstName, and lastName": true
+				}
+			]
+		},
+		{
+			"id": "7c813afb-bdb9-4db3-bf33-ff900160c6ea",
+			"name": "2- Author Registeration (Valid Request Body)",
+			"url": "https://fakerestapi.azurewebsites.net/api/v1/Authors",
+			"time": 94,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"The response is \"200 OK\" or \"201 Created\" when the author register with valid data": true,
+				"The resonse has a json body": true,
+				"Registeration data is stored successfully": true
+			},
+			"testPassFailCounts": {
+				"The response is \"200 OK\" or \"201 Created\" when the author register with valid data": {
+					"pass": 1,
+					"fail": 0
+				},
+				"The resonse has a json body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Registeration data is stored successfully": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				94
+			],
+			"allTests": [
+				{
+					"The response is \"200 OK\" or \"201 Created\" when the author register with valid data": true,
+					"The resonse has a json body": true,
+					"Registeration data is stored successfully": true
+				}
+			]
+		},
+		{
+			"id": "be43f0b3-1d65-4b9f-b768-27a8a08f57e9",
+			"name": "3- Registered Author",
+			"url": "https://fakerestapi.azurewebsites.net/api/v1/Authors/1000",
+			"time": 95,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"The GET request for the new registered author should be \"200 OK\"": false,
+				"Registered author data should appear in the response body of the GET request for that author id": false
+			},
+			"testPassFailCounts": {
+				"The GET request for the new registered author should be \"200 OK\"": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Registered author data should appear in the response body of the GET request for that author id": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				95
+			],
+			"allTests": [
+				{
+					"The GET request for the new registered author should be \"200 OK\"": false,
+					"Registered author data should appear in the response body of the GET request for that author id": false
+				}
+			]
+		},
+		{
+			"id": "c7546804-2e0c-4762-a6ee-82c283b9bac2",
+			"name": "4- Author Registeration (Invalid Request Body)",
+			"time": 91,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"The response is \"400 Bad Request\" when the request body is invalid": false
+			},
+			"testPassFailCounts": {
+				"The response is \"400 Bad Request\" when the request body is invalid": {
+					"pass": 1,
+					"fail": 3
+				}
+			},
+			"times": [
+				90,
+				96,
+				93,
+				91
+			],
+			"allTests": [
+				{
+					"The response is \"400 Bad Request\" when the request body is invalid": true
+				},
+				{
+					"The response is \"400 Bad Request\" when the request body is invalid": false
+				},
+				{
+					"The response is \"400 Bad Request\" when the request body is invalid": false
+				},
+				{
+					"The response is \"400 Bad Request\" when the request body is invalid": false
+				}
+			]
+		},
+		{
+			"id": "a7dba58b-1e13-4411-b46b-047b651dcee4",
+			"name": "5- Authors Of A Book (Valid idBook)",
+			"url": "https://fakerestapi.azurewebsites.net/api/v1/Authors/authors/books/1",
+			"time": 97,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"The response is \"200 OK\" when Searching with valid \"idBook\"": true,
+				"The response has a josn body": true,
+				"Searching with valid \"idBook\" should return relative data in response body": true
+			},
+			"testPassFailCounts": {
+				"The response is \"200 OK\" when Searching with valid \"idBook\"": {
+					"pass": 1,
+					"fail": 0
+				},
+				"The response has a josn body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Searching with valid \"idBook\" should return relative data in response body": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				97
+			],
+			"allTests": [
+				{
+					"The response is \"200 OK\" when Searching with valid \"idBook\"": true,
+					"The response has a josn body": true,
+					"Searching with valid \"idBook\" should return relative data in response body": true
+				}
+			]
+		},
+		{
+			"id": "a9129dac-26ee-4040-87fe-2347018db10d",
+			"name": "6- Authors Of A Book (Invalid idBook)",
+			"url": "https://fakerestapi.azurewebsites.net/api/v1/Authors/authors/books/0",
+			"time": 90,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"The response is \"404 Not Found\" when Searching with invalid \"idBook\"": false
+			},
+			"testPassFailCounts": {
+				"The response is \"404 Not Found\" when Searching with invalid \"idBook\"": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				90
+			],
+			"allTests": [
+				{
+					"The response is \"404 Not Found\" when Searching with invalid \"idBook\"": false
+				}
+			]
+		},
+		{
+			"id": "7d53b937-ab0a-4785-a5ea-3b5e40eef2e6",
+			"name": "7- Single Author (Valid authorId)",
+			"url": "https://fakerestapi.azurewebsites.net/api/v1/Authors/5",
+			"time": 92,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"The response is \"200 OK\" when Searching with valid \"authorId\"": true,
+				"The response has a josn body": true,
+				"Searching with valid \"authorId\" should return relative data in response body": true
+			},
+			"testPassFailCounts": {
+				"The response is \"200 OK\" when Searching with valid \"authorId\"": {
+					"pass": 1,
+					"fail": 0
+				},
+				"The response has a josn body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Searching with valid \"authorId\" should return relative data in response body": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				92
+			],
+			"allTests": [
+				{
+					"The response is \"200 OK\" when Searching with valid \"authorId\"": true,
+					"The response has a josn body": true,
+					"Searching with valid \"authorId\" should return relative data in response body": true
+				}
+			]
+		},
+		{
+			"id": "7a9e74a1-741f-4678-a936-54c367d25748",
+			"name": "8- Single Author (Invalid authorId)",
+			"url": "https://fakerestapi.azurewebsites.net/api/v1/Authors/50000000",
+			"time": 91,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"The response is \"404 Not Found\" when Searching with invalid \"authorId\"": true
+			},
+			"testPassFailCounts": {
+				"The response is \"404 Not Found\" when Searching with invalid \"authorId\"": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				91
+			],
+			"allTests": [
+				{
+					"The response is \"404 Not Found\" when Searching with invalid \"authorId\"": true
+				}
+			]
+		},
+		{
+			"id": "166bc572-249a-4f68-95a5-35c2609d7a72",
+			"name": "9- Edit Author Data (Valid authorId)",
+			"url": "https://fakerestapi.azurewebsites.net/api/v1/Authors/1",
+			"time": 91,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"The response is \"200 OK\" when updating data of a valid author": true,
+				"The response has a json body": true,
+				"Updating data of a valid author is done successfully": true
+			},
+			"testPassFailCounts": {
+				"The response is \"200 OK\" when updating data of a valid author": {
+					"pass": 1,
+					"fail": 0
+				},
+				"The response has a json body": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Updating data of a valid author is done successfully": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				91
+			],
+			"allTests": [
+				{
+					"The response is \"200 OK\" when updating data of a valid author": true,
+					"The response has a json body": true,
+					"Updating data of a valid author is done successfully": true
+				}
+			]
+		},
+		{
+			"id": "ff2207b6-85a5-4c28-8311-033c7e9c4786",
+			"name": "10- Updated Author",
+			"url": "https://fakerestapi.azurewebsites.net/api/v1/Authors/1",
+			"time": 97,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"The GET request for the updated author should be \"200 OK\"": true,
+				"Updated author data should appear in the response body of the GET request for that author id": false
+			},
+			"testPassFailCounts": {
+				"The GET request for the updated author should be \"200 OK\"": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Updated author data should appear in the response body of the GET request for that author id": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				97
+			],
+			"allTests": [
+				{
+					"The GET request for the updated author should be \"200 OK\"": true,
+					"Updated author data should appear in the response body of the GET request for that author id": false
+				}
+			]
+		},
+		{
+			"id": "42724aca-1729-44c6-9ab7-c3962bfdc63d",
+			"name": "11- Edit Author Data (Invalid authorId)",
+			"url": "https://fakerestapi.azurewebsites.net/api/v1/Authors/10000000",
+			"time": 92,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"The response is \"404 Not Found\" when updating data of an invalid author": false
+			},
+			"testPassFailCounts": {
+				"The response is \"404 Not Found\" when updating data of an invalid author": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				92
+			],
+			"allTests": [
+				{
+					"The response is \"404 Not Found\" when updating data of an invalid author": false
+				}
+			]
+		},
+		{
+			"id": "4ed80a4b-60af-4c2e-89a2-48dff69e3a1e",
+			"name": "12- Delete An Author (Valid authorId)",
+			"url": "https://fakerestapi.azurewebsites.net/api/v1/Authors/2",
+			"time": 92,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"The response is \"200 OK\" when deleting a valid author": true,
+				"Deleting a valid author is done successfully (the response shouldn't have a body)": true
+			},
+			"testPassFailCounts": {
+				"The response is \"200 OK\" when deleting a valid author": {
+					"pass": 1,
+					"fail": 0
+				},
+				"Deleting a valid author is done successfully (the response shouldn't have a body)": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				92
+			],
+			"allTests": [
+				{
+					"The response is \"200 OK\" when deleting a valid author": true,
+					"Deleting a valid author is done successfully (the response shouldn't have a body)": true
+				}
+			]
+		},
+		{
+			"id": "e95bca32-5ad0-47e1-86c3-0813bfbff30a",
+			"name": "13- Deleted Author",
+			"url": "https://fakerestapi.azurewebsites.net/api/v1/Authors/2",
+			"time": 93,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"The GET request for the deleted author should be \"404 Not Found\"": false,
+				"Deleted author shouldn't get a response body when send a GET request for that author id": false
+			},
+			"testPassFailCounts": {
+				"The GET request for the deleted author should be \"404 Not Found\"": {
+					"pass": 0,
+					"fail": 1
+				},
+				"Deleted author shouldn't get a response body when send a GET request for that author id": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				93
+			],
+			"allTests": [
+				{
+					"The GET request for the deleted author should be \"404 Not Found\"": false,
+					"Deleted author shouldn't get a response body when send a GET request for that author id": false
+				}
+			]
+		},
+		{
+			"id": "3c214b68-65df-418d-9c2a-1dc27cdb0d64",
+			"name": "14- Delete An Author (Invalid authorId)",
+			"url": "https://fakerestapi.azurewebsites.net/api/v1/Authors/10000000",
+			"time": 93,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"The response is \"404 Not Found\" when deleting an invalid author": false
+			},
+			"testPassFailCounts": {
+				"The response is \"404 Not Found\" when deleting an invalid author": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				93
+			],
+			"allTests": [
+				{
+					"The response is \"404 Not Found\" when deleting an invalid author": false
+				}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 1700,
+	"collection": {
+		"requests": [
+			{
+				"id": "e9bfca24-6030-4397-af60-3fea2d00614c",
+				"method": "GET"
+			},
+			{
+				"id": "7c813afb-bdb9-4db3-bf33-ff900160c6ea",
+				"method": "POST"
+			},
+			{
+				"id": "be43f0b3-1d65-4b9f-b768-27a8a08f57e9",
+				"method": "GET"
+			},
+			{
+				"id": "c7546804-2e0c-4762-a6ee-82c283b9bac2",
+				"method": "POST"
+			},
+			{
+				"id": "c7546804-2e0c-4762-a6ee-82c283b9bac2",
+				"method": "POST"
+			},
+			{
+				"id": "c7546804-2e0c-4762-a6ee-82c283b9bac2",
+				"method": "POST"
+			},
+			{
+				"id": "c7546804-2e0c-4762-a6ee-82c283b9bac2",
+				"method": "POST"
+			},
+			{
+				"id": "a7dba58b-1e13-4411-b46b-047b651dcee4",
+				"method": "GET"
+			},
+			{
+				"id": "a9129dac-26ee-4040-87fe-2347018db10d",
+				"method": "GET"
+			},
+			{
+				"id": "7d53b937-ab0a-4785-a5ea-3b5e40eef2e6",
+				"method": "GET"
+			},
+			{
+				"id": "7a9e74a1-741f-4678-a936-54c367d25748",
+				"method": "GET"
+			},
+			{
+				"id": "166bc572-249a-4f68-95a5-35c2609d7a72",
+				"method": "PUT"
+			},
+			{
+				"id": "ff2207b6-85a5-4c28-8311-033c7e9c4786",
+				"method": "GET"
+			},
+			{
+				"id": "42724aca-1729-44c6-9ab7-c3962bfdc63d",
+				"method": "PUT"
+			},
+			{
+				"id": "4ed80a4b-60af-4c2e-89a2-48dff69e3a1e",
+				"method": "DELETE"
+			},
+			{
+				"id": "e95bca32-5ad0-47e1-86c3-0813bfbff30a",
+				"method": "GET"
+			},
+			{
+				"id": "3c214b68-65df-418d-9c2a-1dc27cdb0d64",
+				"method": "DELETE"
+			}
+		]
+	}
+}

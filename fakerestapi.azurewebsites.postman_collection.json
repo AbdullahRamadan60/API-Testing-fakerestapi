@@ -1,0 +1,863 @@
+{
+	"info": {
+		"_postman_id": "a2cc85d5-06be-493f-af89-af94c3e3cd5f",
+		"name": "fakerestapi.azurewebsites",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18912240"
+	},
+	"item": [
+		{
+			"name": "/api/v1/Authors",
+			"item": [
+				{
+					"name": "1- Authors List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"The response is \\\"200 OK\\\"\", function()\r",
+									"{\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"    pm.expect(pm.response.status).to.equal(\"OK\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"The response has a json body\", function()\r",
+									"{\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.contain(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"The authors have the following properties (keys) -> id, idBook, firstName, and lastName\", function()\r",
+									"{\r",
+									"    var authorCount = pm.response.json().length;\r",
+									"\r",
+									"    var randomNumber1 = Math.floor(Math.random() * authorCount);\r",
+									"    var randomNumber2 = Math.floor(Math.random() * authorCount);\r",
+									"    var randomNumber3 = Math.floor(Math.random() * authorCount);\r",
+									"\r",
+									"    pm.expect(pm.response.json()[randomNumber1]).to.have.keys(\"id\",\"idBook\",\"firstName\", \"lastName\");\r",
+									"    pm.expect(pm.response.json()[randomNumber2]).to.have.keys(\"id\",\"idBook\",\"firstName\", \"lastName\");\r",
+									"    pm.expect(pm.response.json()[randomNumber3]).to.have.keys(\"id\",\"idBook\",\"firstName\", \"lastName\");  \r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/Authors",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2- Author Registeration (Valid Request Body)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"The response is \\\"200 OK\\\" or \\\"201 Created\\\" when the author register with valid data\" , function()\r",
+									"{\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200 , 201]);\r",
+									"    pm.expect(pm.response.status).to.be.oneOf([\"OK\" , \"Created\"]);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"The resonse has a json body\", function()\r",
+									"{\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.contain(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Registeration data is stored successfully\", function()\r",
+									"{\r",
+									"    var requestBody = JSON.parse(pm.request.body.raw)\r",
+									"    var responseBody = pm.response.json();\r",
+									"   \r",
+									"    pm.expect(responseBody.id).to.equal(requestBody.id);\r",
+									"    pm.expect(responseBody.idBook).to.equal(requestBody.idBook);\r",
+									"    pm.expect(responseBody.firstName).to.equal(requestBody.firstName);\r",
+									"    pm.expect(responseBody.lastName).to.equal(requestBody.lastName);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"authorId\",1000);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": {{authorId}},\r\n  \"idBook\": 294,\r\n  \"firstName\": \"Abdullah\",\r\n  \"lastName\": \"Ramadan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/Authors",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "3- Registered Author",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"The GET request for the new registered author should be \\\"200 OK\\\"\", function()\r",
+									"{\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"    pm.expect(pm.response.status).to.equal(\"Ok\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Registered author data should appear in the response body of the GET request for that author id\", function()\r",
+									"{\r",
+									"    pm.expect(pm.response.json().id).to.equal(pm.environment.get(\"authorId\"));\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"\r",
+									"              //* request bodies for the next post request *// \r",
+									"              //                      |\r",
+									"              //                      v\r",
+									"           // Author Registeration (Invalid Request Body) //\r",
+									"\r",
+									"const noBody = JSON.stringify(null);   \r",
+									"    \r",
+									"const emptyBody = JSON.stringify({});\r",
+									"   \r",
+									"const nullFirstNameBody = \r",
+									"    JSON.stringify({\r",
+									"    \"id\": 1000,\r",
+									"    \"idBook\": 294,\r",
+									"    \"firstName\": null,\r",
+									"    \"lastName\": \"Ramadan\"\r",
+									"    });\r",
+									"  \r",
+									"const nullLastNameBody = \r",
+									"    JSON.stringify({\r",
+									"    \"id\": 1000,\r",
+									"    \"idBook\": 294,\r",
+									"    \"firstName\": \"Abdullah\",\r",
+									"    \"lastName\": null\r",
+									"    });\r",
+									"\r",
+									"const bodies = [noBody, emptyBody, nullFirstNameBody, nullLastNameBody];\r",
+									"\r",
+									"pm.variables.set(\"bodies\", bodies);\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/Authors/{{authorId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors",
+								"{{authorId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "4- Author Registeration (Invalid Request Body)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// This Test Case will only run in The Collection Run.\r",
+									"//It will be run 4 times :\r",
+									"    //1- with null (No) request body\r",
+									"    //2- with empty reques body { }\r",
+									"    //3- with firstName null value \r",
+									"    //4- with lastName null value\r",
+									"pm.test(\"The response is \\\"400 Bad Request\\\" when the request body is invalid\", function()\r",
+									"{\r",
+									"    pm.expect(pm.response.code).to.equal(400);\r",
+									"    pm.expect(pm.response.status).to.equal(\"Bad Request\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"// The original array of \"bodies\" is in the (Pre-request Script) of the prevoius request (Registered Author)\r",
+									"\r",
+									"const bodies = pm.variables.get(\"bodies\"); //get the array elements\r",
+									"pm.variables.set(\"currentBody\" , bodies.shift()); //assign the first value to the request body variable \"currentBody\" , then removes it and go to the next value  \r",
+									"\r",
+									"if(bodies.length > 0) \r",
+									"{  //As long as there are elements in the \"bodies\" array, make this request again -> to execute the test with all the bodies\r",
+									"    postman.setNextRequest(\"4- Author Registeration (Invalid Request Body)\");\r",
+									"}\r",
+									"else\r",
+									"{\r",
+									"    //If the array elements is 0 (No more \"bodies\"), move to the next request\r",
+									"    postman.setNextRequest(\"5- Authors Of A Book (Valid idBook)\");\r",
+									"}\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{{currentBody}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/Authors",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "5- Authors Of A Book (Valid idBook)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"idBook\", 1);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"The response is \\\"200 OK\\\" when Searching with valid \\\"idBook\\\"\", function()\r",
+									"{\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"    pm.expect(pm.response.status).to.equal(\"OK\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"The response has a josn body\", function()\r",
+									"{\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.contain(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Searching with valid \\\"idBook\\\" should return relative data in response body\", function()\r",
+									"{\r",
+									"    for(var i = 0 ; i < pm.response.json().length ; i++)\r",
+									"    {\r",
+									"        pm.expect(pm.response.json()[i].idBook).to.equal(pm.environment.get(\"idBook\"));\r",
+									"    }\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/Authors/authors/books/{{idBook}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors",
+								"authors",
+								"books",
+								"{{idBook}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "6- Authors Of A Book (Invalid idBook)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"idBook\", 0);  //Invalid idBook"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"The response is \\\"404 Not Found\\\" when Searching with invalid \\\"idBook\\\"\", function()\r",
+									"{\r",
+									"    pm.expect(pm.response.code).to.equal(404);\r",
+									"    pm.expect(pm.response.status).to.equal(\"Not Found\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/Authors/authors/books/{{idBook}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors",
+								"authors",
+								"books",
+								"{{idBook}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "7- Single Author (Valid authorId)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"authorId\", 5);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"The response is \\\"200 OK\\\" when Searching with valid \\\"authorId\\\"\", function()\r",
+									"{\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"    pm.expect(pm.response.status).to.equal(\"OK\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"The response has a josn body\", function()\r",
+									"{\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.contain(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Searching with valid \\\"authorId\\\" should return relative data in response body\", function()\r",
+									"{\r",
+									"    pm.expect(pm.response.json().id).to.equal(pm.environment.get(\"authorId\"));\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/Authors/{{authorId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors",
+								"{{authorId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "8- Single Author (Invalid authorId)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"authorId\", 50000000);"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"The response is \\\"404 Not Found\\\" when Searching with invalid \\\"authorId\\\"\", function()\r",
+									"{\r",
+									"    pm.expect(pm.response.code).to.equal(404);\r",
+									"    pm.expect(pm.response.status).to.equal(\"Not Found\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/Authors/{{authorId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors",
+								"{{authorId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "9- Edit Author Data (Valid authorId)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"authorId\", 1);\r",
+									"pm.environment.set(\"idBook\", 1)\r",
+									"pm.environment.set(\"firstName\", \"Mohamed\");\r",
+									"pm.environment.set(\"lastName\", \"Ali\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"The response is \\\"200 OK\\\" when updating data of a valid author\", function()\r",
+									"{\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"    pm.expect(pm.response.status).to.equal(\"OK\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"The response has a json body\", function()\r",
+									"{\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.contain(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Updating data of a valid author is done successfully\", function()\r",
+									"{\r",
+									"    var requestBody = JSON.parse(pm.request.body.raw);\r",
+									"    var responseBody = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseBody.id).to.equal(requestBody.id);\r",
+									"    pm.expect(responseBody.idBook).to.equal(requestBody.idBook);\r",
+									"                //updated values of(firstName & lastName)\r",
+									"    pm.expect(responseBody.firstName).to.equal(requestBody.firstName); \r",
+									"    pm.expect(responseBody.lastName).to.equal(requestBody.lastName);\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": {{authorId}},\r\n  \"idBook\": {{idBook}},\r\n  \"firstName\": \"{{firstName}}\",\r\n  \"lastName\": \"{{lastName}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/Authors/{{authorId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors",
+								"{{authorId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "10- Updated Author",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"The GET request for the updated author should be \\\"200 OK\\\"\", function()\r",
+									"{\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"    pm.expect(pm.response.status).to.equal(\"OK\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Updated author data should appear in the response body of the GET request for that author id\", function()\r",
+									"{\r",
+									"    pm.expect(pm.response.json().id).to.equal(pm.environment.get(\"authorId\"));\r",
+									"    pm.expect(pm.response.json().idBook).to.equal(pm.environment.get(\"idBook\"));\r",
+									"    pm.expect(pm.response.json().firstName).to.equal(pm.environment.get(\"firstName\"));\r",
+									"    pm.expect(pm.response.json().lastName).to.equal(pm.environment.get(\"lastName\"));\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"//The same values in the PUT request  \r",
+									"pm.environment.set(\"authorId\", 1);\r",
+									"pm.environment.set(\"idBook\", 1)\r",
+									"pm.environment.set(\"firstName\", \"Mohamed\");\r",
+									"pm.environment.set(\"lastName\", \"Ali\");\r",
+									"\r",
+									"//Env. variables are written here to give accurate results when this request is single excuted \r",
+									"//In case of Collection run -> no need for env. variables here"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/Authors/{{authorId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors",
+								"{{authorId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "11- Edit Author Data (Invalid authorId)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"authorId\", 10000000);  //invalid authorId\r",
+									"pm.environment.set(\"idBook\", 1)\r",
+									"pm.environment.set(\"firstName\", \"Mohamed\");\r",
+									"pm.environment.set(\"lastName\", \"Ali\");"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"The response is \\\"404 Not Found\\\" when updating data of an invalid author\", function()\r",
+									"{\r",
+									"    pm.expect(pm.response.code).to.equal(404);\r",
+									"    pm.expect(pm.response.status).to.equal(\"Not Found\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": {{authorId}},\r\n  \"idBook\": {{idBook}},\r\n  \"firstName\": \"{{firstName}}\",\r\n  \"lastName\": \"{{lastName}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/Authors/{{authorId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors",
+								"{{authorId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "12- Delete An Author (Valid authorId)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"authorId\", 2); "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"The response is \\\"200 OK\\\" when deleting a valid author\", function()\r",
+									"{\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"    pm.expect(pm.response.status).to.equal(\"OK\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deleting a valid author is done successfully (the response shouldn't have a body)\", function()\r",
+									"{\r",
+									"    pm.response.to.not.be.withBody;\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/Authors/{{authorId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors",
+								"{{authorId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "13- Deleted Author",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"The GET request for the deleted author should be \\\"404 Not Found\\\"\", function()\r",
+									"{\r",
+									"    pm.expect(pm.response.code).to.equal(404);\r",
+									"    pm.expect(pm.response.status).to.equal(\"Not Found\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Deleted author shouldn't get a response body when send a GET request for that author id\", function()\r",
+									"{\r",
+									"    pm.expect(pm.response.to.not.be.withBody);\r",
+									"    pm.expect(pm.response.to.not.be.json);\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"//The same value in the Delete request\r",
+									"pm.environment.set(\"authorId\", 2); \r",
+									"\r",
+									"//Env. variable is written here to give accurate result when this request is single excuted \r",
+									"//In case of Collection run -> no need for the env. variable here"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/Authors/{{authorId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors",
+								"{{authorId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "14- Delete An Author (Invalid authorId)",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"authorId\", 10000000); "
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"The response is \\\"404 Not Found\\\" when deleting an invalid author\", function()\r",
+									"{\r",
+									"    pm.expect(pm.response.code).to.equal(404);\r",
+									"    pm.expect(pm.response.status).to.equal(\"Not Found\");\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/Authors/{{authorId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"Authors",
+								"{{authorId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
